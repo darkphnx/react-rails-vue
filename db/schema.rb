@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(version: 2018_09_26_181639) do
 
   create_table "tasks_tags", force: :cascade do |t|
     t.integer "task_id"
-    t.integer "tags_id"
+    t.integer "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tags_id"], name: "index_tasks_tags_on_tags_id"
+    t.index ["tag_id"], name: "index_tasks_tags_on_tag_id"
     t.index ["task_id"], name: "index_tasks_tags_on_task_id"
   end
 

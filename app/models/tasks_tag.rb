@@ -13,5 +13,5 @@
 # tags, but I find you always need the link model eventually.
 class TasksTag < ApplicationRecord
   belongs_to :task
-  belongs_to :tags
+  belongs_to :tag
 end

@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :find_task
 
   def index
+    @tasks = Task.desc
   end
 
   def create
@@ -9,7 +10,7 @@ class TasksController < ApplicationController
 
     respond_to do |wants|
       if @task.save
-        wants.json { render json: @task.to_json, status: :created }
+        wants.json { render :show, status: :created }
       else
         wants.json { render json: @task.errors, status: :unprocessible_entity }
       end
@@ -19,7 +20,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |wants|
       if @task.update(safe_task_params)
-        wants.json { render json: @task.to_json }
+        wants.json { render :show }
       else
         wants.json { render json: @task.errors, status: :unprocessible_entity }
       end

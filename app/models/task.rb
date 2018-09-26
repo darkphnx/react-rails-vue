@@ -17,10 +17,13 @@ class Task < ApplicationRecord
 
   has_many :tasks_tags, dependent: :destroy
   has_many :tags, through: :tasks_tags
+  has_many :comments, dependent: :destroy
 
   validates :title, presence: true
 
   before_save :process_tags_list
+
+  scope :desc, -> { order(id: :desc) }
 
   private
 

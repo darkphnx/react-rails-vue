@@ -16,12 +16,12 @@ export default {
   props: ['id', 'title'],
   methods: {
     deleteTask: function() {
+      const vm = this;
+
       axios.delete(`/tasks/${this.id}`)
         .then(function(response){
-          this.$emit('removeTask', this.id);
+          vm.$emit('remove-task', vm.id);
         });
-
-      this.$emit('remove-task', this.id);
     }
   }
 

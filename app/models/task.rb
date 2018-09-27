@@ -23,7 +23,7 @@ class Task < ApplicationRecord
 
   before_save :process_tags_list
 
-  scope :desc, -> { order(id: :desc) }
+  scope :asc, -> { order(id: :asc) }
 
   private
 

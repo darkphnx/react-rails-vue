@@ -1,16 +1,22 @@
 <template>
-  <li>
-    <h3>{{ title }}</h3>
-    <ul>
-      <li v-for="tag in tags" :key="tag">
-        {{ tag }}
-      </li>
-    </ul>
-    <ul>
-      <li><a href="#" v-on:click.prevent="editable">Edit</a></li>
-      <li><a href="#" v-on:click.prevent="deleteTask">Delete</a></li>
-    </ul>
-  </li>
+  <div class='tile tile-centered task'>
+    <div class='tile-content'>
+      <div class='tile-title text-bold'>{{ title }}</div>
+      <div class='text-subtitle mt-2'>
+        <span class='label label-rounded' v-for="tag in tags" :key="tag">
+          {{ tag }}
+        </span>
+      </div>
+    </div>
+    <div class='tile-actions'>
+      <button
+        class='btn btn-link tooltip tooltip-left'
+        data-tooltip="Delete Task"
+        v-on:click.prevent="deleteTask">
+          <i class='icon icon-delete'></i>
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>

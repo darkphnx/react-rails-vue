@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :find_task
 
   def index
-    @tasks = Task.desc
+    @tasks = Task.asc
   end
 
   def create

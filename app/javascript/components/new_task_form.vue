@@ -1,9 +1,14 @@
 <template>
   <form @submit.prevent="addTask">
-    <h2>Add Task</h2>
-    <input type='text' v-model="title" placeholder="Description" />
-    <input type='text' v-model="tags_list" placeholder="Tags List" />
-    <button type='submit'>Add Task</button>
+    <div class='form-group'>
+      <input class='form-input' type='text' v-model="title" placeholder="Task" />
+    </div>
+    <div class='form-group'>
+      <div class='input-group'>
+        <input class='form-input' type='text' v-model="tags_list" placeholder="Tags List" />
+        <button class='btn btn-primary input-group-btn' type='submit'>Add Task</button>
+      </div>
+    </div>
   </form>
 </template>
 

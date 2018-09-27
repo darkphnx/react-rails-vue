@@ -14,18 +14,27 @@
 <script>
 import Task from './task.vue'
 import NewTaskForm from './new_task_form.vue'
+import axios from '../utils/request'
 
 export default {
-  props: {
-    initialTasks: Array
-  },
   data: function () {
     return {
-      tasks: this.initialTasks
+      tasks: []
     }
   },
+  created: function() {
+    this.fetchTasks()
+  },
   methods: {
-    addTask: function (newTask) {
+    fetchTasks: function() {
+      const vm = this;
+
+      axios.get('/tasks')
+        .then(function(xhr) {
+          vm.tasks = xhr.data;
+        });
+    },
+    addTask: function(newTask) {
       this.tasks.push(newTask);
     },
     removeTask: function(taskId) {

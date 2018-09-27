@@ -25,7 +25,8 @@
             <empty
               icon="flag"
               title="No tasks yet"
-              subtitle="Add one with the form below" />
+              subtitle="Add one with the form below"
+              :class="tasksLoadingClass" />
           </template>
         </div>
         <div class='panel-footer'>
@@ -44,7 +45,8 @@
             <empty
               icon="message"
               title="No task selected"
-              subtitle="Select a task from the list on the left to show it's comments" />
+              subtitle="Select a task from the list on the left to show it's comments"
+              :class="tasksLoadingClass" />
           </template>
           <template v-else-if="focussedTask.comments.length === 0">
             <empty
@@ -86,6 +88,7 @@ export default {
       tasks: [],
       focussedTaskId: null,
       selectedTags: [],
+      tasksLoading: true
     }
   },
   created: function() {
@@ -98,12 +101,15 @@ export default {
       axios.get('/tasks')
         .then(function(xhr) {
           vm.tasks = xhr.data;
+          vm.tasksLoading = false;
         });
     },
     addTask: function(newTask) {
       this.tasks.push(newTask);
     },
     updateTask: function(updatedTask) {
+      const taskId = updatedTask.id;
+
       const existingTaskIndex = this.tasks.findIndex(function(task) {
         return task.id === taskId;
       });
@@ -166,6 +172,11 @@ export default {
       return this.filteredTasks.find(function(task) {
         return task.id === vm.focussedTaskId;
       });
+    },
+    tasksLoadingClass: function() {
+      if(this.tasksLoading) {
+        return 'loading loading-lg';
+      }
     }
   },
   components: {

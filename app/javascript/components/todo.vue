@@ -19,6 +19,7 @@
               :key="task.id"
               :focussed="focussedTask === task"
               @remove-task="removeTask"
+              @update-task="updateTask"
               @focus-task="focusTask" />
           </template>
           <template v-else>
@@ -45,7 +46,7 @@
             <empty
               icon="message"
               title="No task selected"
-              subtitle="Select a task from the list on the left to show it's comments"
+              subtitle="Select a task from the list on the left to show its comments"
               :class="tasksLoadingClass" />
           </template>
           <template v-else-if="focussedTask.comments.length === 0">
@@ -106,6 +107,7 @@ export default {
     },
     addTask: function(newTask) {
       this.tasks.push(newTask);
+      this.focussedTaskId = newTask.id;
     },
     updateTask: function(updatedTask) {
       const taskId = updatedTask.id;

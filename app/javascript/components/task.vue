@@ -2,7 +2,11 @@
   <div class='c-hand p-2 tile tile-centered task' :class="{ 'bg-gray': focussed, 'loading': editLoading }" @click="focusTask">
     <template v-if="editing">
       <div class="tile-content">
-        <div class='form-group'>
+        <validation-errors
+          item-type="task"
+          :validation-errors="editValidationErrors"
+          v-if="editValidationErrors.length" />
+        <div class='form-group mt-1'>
           <input
             class='form-input'
             type='text'
@@ -63,6 +67,7 @@
 <script>
 
 import axios from '../utils/request'
+import ValidationErrors from './validation_errors.vue'
 
 export default {
   props: {
@@ -76,7 +81,8 @@ export default {
       editing: false,
       editLoading: false,
       editedTitle: this.title,
-      editedTagsList: this.tags.join(', ')
+      editedTagsList: this.tags.join(', '),
+      editValidationErrors: []
     }
   },
   methods: {
@@ -113,9 +119,22 @@ export default {
         .then(function(xhr) {
           vm.$emit('update-task', xhr.data);
           vm.editing = false;
+          vm.editValidationErrors = [];
+        })
+        .catch(function(error) {
+          if(error.response.status === 422){
+            vm.editValidationErrors = error.response.data;
+          } else {
+            alert("Sorry, an unknown error occurred");
+          }
+        })
+        .then(function() {
           vm.editLoading = false;
         });
     }
+  },
+  components: {
+    'validation-errors': ValidationErrors
   }
 }
 </script>

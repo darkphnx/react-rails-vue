@@ -12,7 +12,7 @@ class TasksController < ApplicationController
       if @task.save
         wants.json { render :show, status: :created }
       else
-        wants.json { render json: @task.errors, status: :unprocessible_entity }
+        wants.json { render json: @task.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -22,7 +22,7 @@ class TasksController < ApplicationController
       if @task.update(safe_task_params)
         wants.json { render :show }
       else
-        wants.json { render json: @task.errors, status: :unprocessible_entity }
+        wants.json { render json: @task.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
       if @task.destroy
         wants.json { render :show }
       else
-        wants.json { render json: @task.errors, status: :unprocessible_entity }
+        wants.json { render json: @task.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end

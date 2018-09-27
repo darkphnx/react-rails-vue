@@ -1,6 +1,10 @@
 <template>
   <form @submit.prevent="addTask">
-    <div class='form-group'>
+    <validation-errors
+      item-type="task"
+      :validation-errors="validationErrors"
+      v-if="validationErrors.length" />
+    <div class='form-group mt-1'>
       <input
         class='form-input'
         type='text'
@@ -27,12 +31,14 @@
 
 <script>
 import axios from '../utils/request'
+import ValidationErrors from './validation_errors.vue'
 
 function getInitialData() {
   return {
     title: '',
     tags_list: '',
-    loading: false
+    loading: false,
+    validationErrors: []
   }
 }
 
@@ -54,6 +60,16 @@ export default {
         .then(function (newTask) {
           vm.$emit('add-task', newTask.data);
           vm.resetData();
+        })
+        .catch(function(error) {
+          if(error.response.status === 422){
+            vm.validationErrors = error.response.data;
+          } else {
+            alert("Sorry, an unknown error occurred");
+          }
+        })
+        .then(function() {
+          vm.loading = false;
         });
     },
     resetData: function() {
@@ -66,6 +82,9 @@ export default {
         return 'loading';
       }
     }
+  },
+  components: {
+    'validation-errors': ValidationErrors
   }
 }
 </script>

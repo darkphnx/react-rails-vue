@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
       if @comment.save
         wants.json { render 'tasks/show', status: :created }
       else
-        wants.json { render json: @comment.errors, status: :unprocessible_entity }
+        wants.json { render json: @comment.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end

@@ -2,6 +2,11 @@
   <li>
     <h3>{{ title }}</h3>
     <ul>
+      <li v-for="tag in tags" :key="tag">
+        {{ tag }}
+      </li>
+    </ul>
+    <ul>
       <li><a href="#" v-on:click.prevent="editable">Edit</a></li>
       <li><a href="#" v-on:click.prevent="deleteTask">Delete</a></li>
     </ul>
@@ -13,7 +18,11 @@
 import axios from '../utils/request'
 
 export default {
-  props: ['id', 'title'],
+  props: {
+    id: Number,
+    title: String,
+    tags: Array,
+  },
   methods: {
     deleteTask: function() {
       const vm = this;

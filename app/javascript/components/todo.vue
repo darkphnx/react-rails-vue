@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button v-on:click="addTask">Add Task!</button>
     <ul>
       <task
         v-for="task in tasks"
@@ -8,6 +7,7 @@
         :key="task.id"
         @remove-task="removeTask" />
     </ul>
+    <new-task-form @add-task="addTask" />
   </div>
 </template>
 
@@ -25,12 +25,12 @@ export default {
     }
   },
   methods: {
-    addTask: function () {
-      this.tasks.push({ id: 999, title: "Another task"})
+    addTask: function (newTask) {
+      this.tasks.push(newTask);
     },
     removeTask: function(taskId) {
       const taskIndex = this.tasks.findIndex(function(task){
-        task.id === taskId;
+        return task.id === taskId;
       });
 
       this.tasks.splice(taskIndex, 1);

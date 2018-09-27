@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.build(safe_task_params)
+    @task = Task.new(safe_task_params)
 
     respond_to do |wants|
       if @task.save

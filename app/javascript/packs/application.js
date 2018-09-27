@@ -8,23 +8,12 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import Vue from 'vue/dist/vue.esm'
-// Axios handles HTTP requests
-import axios from 'axios'
 // Root component
 import Todo from '../components/todo.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  axios.defaults.headers.common['Accept'] = 'application/json';
-  axios.defaults.headers.common['Content-Type'] = 'application/json';
-  // Add csrf token to axios
-  axios.defaults.headers.common['X-CSRF-Token'] = document
-    .querySelector('meta[name="csrf-token"]')
-    .getAttribute('content');
-
   const app = new Vue({
     el: '#todo',
-    data: {
-    },
     components: { Todo }
   })
 })

@@ -3,7 +3,7 @@
     <div class='column col-6'>
       <div class='panel'>
         <div class='panel-header'>
-          <div class='panel-title h5 mt-10'>Tasks</div>
+          <div class='panel-title h5 mt-10'><i class='icon icon-flag'></i> Tasks</div>
         </div>
         <div class='panel-body'>
           <tag-filter
@@ -37,10 +37,10 @@
     <div class='column col-6'>
       <div class='panel'>
         <div class='panel-header'>
-          <div class='panel-title h5 mt-10'>Comments</div>
+          <div class='panel-title h5 mt-10'><i class='icon icon-message'></i> Comments</div>
         </div>
         <div class='panel-body'>
-          <template v-if="focussedTask === null">
+          <template v-if="focussedTask === undefined">
             <empty
               icon="message"
               title="No task selected"
@@ -60,7 +60,10 @@
           </template>
         </div>
         <div class='panel-footer'>
-          New comment form
+          <new-comment-form
+            v-if="focussedTask"
+            :task-id="focussedTask.id"
+            @update-task="updateTask" />
         </div>
       </div>
     </div>
@@ -72,6 +75,7 @@ import TagFilter from './tag_filter.vue'
 import Task from './task.vue'
 import NewTaskForm from './new_task_form.vue'
 import Comment from './comment.vue'
+import NewCommentForm from './new_comment_form.vue'
 import Empty from './empty'
 
 import axios from '../utils/request'
@@ -80,7 +84,7 @@ export default {
   data: function () {
     return {
       tasks: [],
-      focussedTask: null,
+      focussedTaskId: null,
       selectedTags: [],
     }
   },
@@ -99,6 +103,13 @@ export default {
     addTask: function(newTask) {
       this.tasks.push(newTask);
     },
+    updateTask: function(updatedTask) {
+      const existingTaskIndex = this.tasks.findIndex(function(task) {
+        return task.id === taskId;
+      });
+
+      this.tasks.splice(existingTaskIndex, 1, updatedTask);
+    },
     removeTask: function(taskId) {
       const taskIndex = this.tasks.findIndex(function(task) {
         return task.id === taskId;
@@ -107,9 +118,7 @@ export default {
       this.tasks.splice(taskIndex, 1);
     },
     focusTask: function(taskId) {
-      this.focussedTask = this.tasks.find(function(task) {
-        return task.id === taskId;
-      })
+      this.focussedTaskId = taskId;
     },
     updateSelectedTags: function(newSelectedTags){
       this.selectedTags = newSelectedTags;
@@ -150,6 +159,13 @@ export default {
 
         return matchingTasks;
       }
+    },
+    focussedTask: function() {
+      const vm = this;
+
+      return this.filteredTasks.find(function(task) {
+        return task.id === vm.focussedTaskId;
+      });
     }
   },
   components: {
@@ -157,6 +173,7 @@ export default {
     'task': Task,
     'new-task-form': NewTaskForm,
     'comment': Comment,
+    'new-comment-form': NewCommentForm,
     'empty': Empty
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class='tile tile-centered task'>
+  <div class='c-hand p-2 tile tile-centered task' :class="focussedClass" @click="focusTask">
     <div class='tile-content'>
       <div class='tile-title text-bold'>{{ title }}</div>
       <div class='text-subtitle mt-2'>
@@ -28,6 +28,7 @@ export default {
     id: Number,
     title: String,
     tags: Array,
+    focussed: Boolean
   },
   methods: {
     deleteTask: function() {
@@ -37,6 +38,16 @@ export default {
         .then(function(response){
           vm.$emit('remove-task', vm.id);
         });
+    },
+    focusTask: function() {
+      this.$emit('focus-task', this.id);
+    }
+  },
+  computed: {
+    focussedClass: function() {
+      if(this.focussed){
+        return 'bg-gray';
+      }
     }
   }
 

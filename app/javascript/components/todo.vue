@@ -27,7 +27,7 @@
               icon="flag"
               title="No tasks yet"
               subtitle="Add one with the form below"
-              :class="tasksLoadingClass" />
+              :class="{'loading loading-lg':  tasksLoading}" />
           </template>
         </div>
         <div class='panel-footer'>
@@ -47,7 +47,7 @@
               icon="message"
               title="No task selected"
               subtitle="Select a task from the list on the left to show its comments"
-              :class="tasksLoadingClass" />
+              :class="{'loading loading-lg':  tasksLoading}" />
           </template>
           <template v-else-if="focussedTask.comments.length === 0">
             <empty
@@ -174,11 +174,6 @@ export default {
       return this.filteredTasks.find(function(task) {
         return task.id === vm.focussedTaskId;
       });
-    },
-    tasksLoadingClass: function() {
-      if(this.tasksLoading) {
-        return 'loading loading-lg';
-      }
     }
   },
   components: {

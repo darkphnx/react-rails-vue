@@ -9,7 +9,12 @@
       class="form-input mt-1"
       placeholder="Enter your comment here. Markdown is allowed.">
     </textarea>
-    <button type="submit" class="btn btn-primary btn-block" :class="loadingClass">Post Comment</button>
+    <button
+      type="submit"
+      class="btn btn-primary btn-block"
+      :class="{ 'loading': loading }">
+        Post Comment
+    </button>
   </form>
 </template>
 
@@ -61,13 +66,6 @@ export default {
     resetData: function() {
       Object.assign(this.$data, getInitialData());
     },
-  },
-  computed: {
-    loadingClass: function() {
-      if(this.loading) {
-        return 'loading';
-      }
-    }
   },
   components: {
     'validation-errors': ValidationErrors

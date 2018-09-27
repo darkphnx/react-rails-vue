@@ -21,7 +21,7 @@
         <button
           type="submit"
           class='btn btn-primary input-group-btn'
-          :class="loadingClass">
+          :class="{ 'loading': loading }">
             Add Task
         </button>
       </div>
@@ -74,13 +74,6 @@ export default {
     },
     resetData: function() {
       Object.assign(this.$data, getInitialData());
-    }
-  },
-  computed: {
-    loadingClass: function() {
-      if(this.loading) {
-        return 'loading';
-      }
     }
   },
   components: {

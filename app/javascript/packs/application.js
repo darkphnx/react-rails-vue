@@ -8,13 +8,13 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import Vue from 'vue/dist/vue.esm'
-import TodoList from '../components/todo_list.vue'
+import Todo from '../components/todo.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     el: '#todo',
     data: {
     },
-    components: { TodoList }
+    components: { Todo }
   })
 })

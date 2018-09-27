@@ -103,6 +103,9 @@ export default {
         .then(function(xhr) {
           vm.tasks = xhr.data;
           vm.tasksLoading = false;
+          if(vm.tasks.length) {
+            vm.focussedTaskId = vm.tasks[0].id;
+          }
         });
     },
     addTask: function(newTask) {

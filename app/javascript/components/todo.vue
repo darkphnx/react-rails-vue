@@ -1,12 +1,18 @@
 <template>
   <div>
     <button v-on:click="addTask">Add Task!</button>
-    <task-list :tasks="tasks" />
+    <ul>
+      <task
+        v-for="task in tasks"
+        v-bind="task"
+        :key="task.id"
+        @remove-task="removeTask" />
+    </ul>
   </div>
 </template>
 
 <script>
-import TaskList from './task_list.vue'
+import Task from './task.vue'
 import NewTaskForm from './new_task_form.vue'
 
 export default {
@@ -22,15 +28,19 @@ export default {
     addTask: function () {
       this.tasks.push({ id: 999, title: "Another task"})
     },
-    deleteTask: function() {
+    removeTask: function(taskId) {
+      const taskIndex = this.tasks.findIndex(function(task){
+        task.id === taskId;
+      });
 
+      this.tasks.splice(taskIndex, 1);
     },
     updateTask: function() {
 
     }
   },
   components: {
-    'task-list': TaskList,
+    'task': Task,
     'new-task-form': NewTaskForm
   }
 }

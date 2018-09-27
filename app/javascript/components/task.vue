@@ -9,11 +9,19 @@
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
   props: ['id', 'title'],
   methods: {
     deleteTask: function() {
-      console.log(this.id)
+      axios.delete(`/tasks/${this.id}`)
+        .then(function(response){
+          this.$emit('removeTask', this.id);
+        });
+
+      this.$emit('remove-task', this.id);
     }
   }
 

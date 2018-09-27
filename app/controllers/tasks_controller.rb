@@ -30,7 +30,7 @@ class TasksController < ApplicationController
   def destroy
     respond_to do |wants|
       if @task.destroy
-        head :ok
+        wants.json { render :show }
       else
         wants.json { render json: @task.errors, status: :unprocessible_entity }
       end

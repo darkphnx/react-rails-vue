@@ -2,7 +2,7 @@
 
 A happy-go-lucky todo list application with support for tags and comments.
 
-Backend written in (Ruby on Rails)[https://rubyonrails.org/], frontend written in (Vue.js)[https://vuejs.org/], Styles by (spectre.css)[https://picturepan2.github.io/spectre/].
+Backend written in [Ruby on Rails](https://rubyonrails.org/), frontend written in [Vue.js](https://vuejs.org/), Styles by [spectre.css](https://picturepan2.github.io/spectre/).
 
 ## Installation
 

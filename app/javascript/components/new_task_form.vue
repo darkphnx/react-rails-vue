@@ -33,6 +33,12 @@
 import axios from '../utils/request'
 import ValidationErrors from './validation_errors.vue'
 
+/**
+ * Initial form data. We have this in a separate function so that we can call
+ * it again later to reset the form
+ *
+ * @returns {Object}
+ */
 function getInitialData() {
   return {
     title: '',
@@ -45,6 +51,12 @@ function getInitialData() {
 export default {
   data: getInitialData,
   methods: {
+    /**
+     * Posts a task to the backend using axios, emits an add-task event
+     * on success with an json version of the new task.
+     *
+     * @fires add-task
+     */
     addTask: function() {
       this.loading = true;
 
@@ -58,10 +70,13 @@ export default {
 
       axios.post("/tasks", payload)
         .then(function (newTask) {
+          // On success emit an add-task event with the task data and reset
+          // the form.
           vm.$emit('add-task', newTask.data);
           vm.resetData();
         })
         .catch(function(error) {
+          // Display validation errors if we receive a 422, or raise an alert
           if(error.response.status === 422){
             vm.validationErrors = error.response.data;
           } else {
@@ -69,9 +84,13 @@ export default {
           }
         })
         .then(function() {
+          // Always set loading to false
           vm.loading = false;
         });
     },
+    /**
+     * Reset form data back to default state
+     */
     resetData: function() {
       Object.assign(this.$data, getInitialData());
     }

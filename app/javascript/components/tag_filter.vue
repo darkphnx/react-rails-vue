@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id='tag_filter'>
     <a
       href='#'
       class='label label-rounded'

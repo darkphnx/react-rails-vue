@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="addComment">
+  <form @submit.prevent="addComment" id='new_comment_form'>
     <validation-errors
       item-type="comment"
       :validation-errors="validationErrors"
@@ -7,6 +7,7 @@
     <textarea
       v-model="body"
       class="form-input mt-1"
+      name='comment_body'
       placeholder="Enter your comment here. Markdown is allowed.">
     </textarea>
     <button

@@ -20,8 +20,16 @@ RSpec.feature "Adding a task" do
         expect(page).to have_text(tag)
       end
     end
-
     expect(find_field('task_title').value).to eq('')
     expect(find_field('task_tags_list').value).to eq('')
+  end
+
+  scenario "User does not fill in a title" do
+    visit root_path
+
+    click_on "Add Task"
+
+    expect(page).to have_text "Sorry, couldn't save that task, the following errors occurred:"
+    expect(page).to have_text "Title can't be blank"
   end
 end

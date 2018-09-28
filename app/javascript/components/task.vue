@@ -10,6 +10,7 @@
           <input
             class='form-input'
             type='text'
+            name='edit_task_title'
             placeholder="Task description"
             v-model="editedTitle" />
         </div>
@@ -17,6 +18,7 @@
           <input
             class='form-input'
             type='text'
+            name='edit_task_tags_list'
             placeholder="Tags list (comma separated)"
             v-model="editedTagsList" />
         </div>
@@ -26,13 +28,13 @@
           class='btn btn-link tooltip tooltip-left'
           data-tooltip="Save Changes"
           @click.prevent="updateTask">
-            <i class='icon icon-check'></i>
+            <i class='icon icon-check'>Save</i>
         </button>
         <button
           class='btn btn-link tooltip tooltip-left'
           data-tooltip="Cancel Edit"
           @click.prevent="cancelEdit">
-            <i class='icon icon-cross'></i>
+            <i class='icon icon-cross'>Cancel</i>
         </button>
       </div>
     </template>
@@ -51,13 +53,13 @@
           class='btn btn-link tooltip tooltip-left'
           data-tooltip="Edit Task"
           @click.prevent="startEdit">
-            <i class='icon icon-edit'></i>
+            <i class='icon icon-edit'>Edit</i>
         </button>
         <button
           class='btn btn-link tooltip tooltip-left'
           data-tooltip="Delete Task"
           @click.prevent="deleteTask">
-            <i class='icon icon-delete'></i>
+            <i class='icon icon-delete'>Delete</i>
         </button>
       </div>
     </template>

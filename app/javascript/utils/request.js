@@ -2,13 +2,18 @@
 
 import axios from 'axios';
 
-const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+function csrfToken() {
+  const metaTag = document.querySelector('meta[name="csrf-token"]')
+  if(metaTag) {
+    return metaTag.getAttribute('content');
+  }
+}
 
 export default axios.create({
   baseURL: '/',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    'X-CSRF-Token': csrfToken
+    'X-CSRF-Token': csrfToken()
   }
 });

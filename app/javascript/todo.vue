@@ -95,7 +95,7 @@ export default {
   /**
    * On load call fetchTasks() to get our initial set of tasks
    */
-  created: function() {
+  mounted: function() {
     this.fetchTasks()
   },
   methods: {

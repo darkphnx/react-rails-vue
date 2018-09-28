@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="addTask">
+  <form @submit.prevent="addTask" id='new_task_form'>
     <validation-errors
       item-type="task"
       :validation-errors="validationErrors"
@@ -9,6 +9,7 @@
         class='form-input'
         type='text'
         placeholder="Task description"
+        name="task_title"
         v-model="title" />
     </div>
     <div class='form-group'>
@@ -17,6 +18,7 @@
           class='form-input'
           type='text'
           placeholder="Tags list (comma separated)"
+          name="task_tags_list"
           v-model="tags_list" />
         <button
           type="submit"

@@ -34,7 +34,7 @@ Tasks can be assigned tags, the list of tasks can then be filtered by clicking o
 
 Multiple comments can be added to tasks, this allows you to keep track of important information about your task and any progress you've made towards completing it. Comments support markdown for a rich text experience.
 
-**Bonus whimsy** Type ![fact] in any comment to receive a fun fact about space!
+**Bonus whimsy!** Type `![fact]` in any comment to receive a fun fact about space!
 
 ## Tests
 

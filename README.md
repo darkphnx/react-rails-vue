@@ -24,7 +24,7 @@ To use the app just run up a rails server
 rails server
 ```
 
-Then open your browser to (http://localhost:3000)[http://localhost:3000].
+Then open your browser to http://localhost:3000 (by default).
 
 ## Features
 

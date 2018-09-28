@@ -4,6 +4,8 @@ A happy-go-lucky todo list application with support for tags and comments.
 
 Backend written in [Ruby on Rails](https://rubyonrails.org/), frontend written in [Vue.js](https://vuejs.org/), Styles by [spectre.css](https://picturepan2.github.io/spectre/).
 
+This is an experiment to test out the usage of Webpacker with Rails, Vue.js and to see of spectre.css can replace my beloved skeleton.css (it can't, but it's a solid bootstrap alternative).
+
 ## Installation
 
 Clone the repo, run bundler and yarn, seed the database. Default database configuration is set to sqlite, so no need to configure anything unless you want to use another backend.

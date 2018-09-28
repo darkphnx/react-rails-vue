@@ -86,6 +86,12 @@ export default {
     }
   },
   methods: {
+    /**
+     * Make a request to delete this task, then emit a remove-task event with
+     * the task ID
+     *
+     * @fires remove-task
+     */
     deleteTask: function() {
       const vm = this;
 
@@ -94,15 +100,32 @@ export default {
           vm.$emit('remove-task', vm.id);
         });
     },
+    /**
+     * Call to put the task in an editable state
+     */
     startEdit: function() {
       this.editing = true;
     },
+    /**
+     * Call to put the task in in a read state
+     */
     cancelEdit: function() {
       this.editing = false;
     },
+    /**
+     * Sends an event to specify that this task should be focussed
+     *
+     * @fires focus-task
+     */
     focusTask: function() {
       this.$emit('focus-task', this.id);
     },
+    /**
+     * Makes a request to update this task according to the editable form,
+     * then fires an updated-task event with the new task data
+     *
+     * @fires update-task
+     */
     updateTask: function() {
       this.editLoading = true;
 
@@ -117,11 +140,14 @@ export default {
 
       axios.patch(url, payload)
         .then(function(xhr) {
+          // On success emit the update-task event, set editing to false nad
+          // reset any validation errors
           vm.$emit('update-task', xhr.data);
           vm.editing = false;
           vm.editValidationErrors = [];
         })
         .catch(function(error) {
+          // Display any validation errors on 422 or raise an alert
           if(error.response.status === 422){
             vm.editValidationErrors = error.response.data;
           } else {
@@ -129,6 +155,7 @@ export default {
           }
         })
         .then(function() {
+          // Always set loading state to false
           vm.editLoading = false;
         });
     }

@@ -15,12 +15,6 @@ class Comment < ApplicationRecord
   validates :body, presence: true
 
   def body_html
-    @body_html ||= body_renderer.render(body)
-  end
-
-  private
-
-  def body_renderer
-    @body_renderer ||= VueRailsTodo::CommentRenderer.new
+    @body_html ||= VueRailsTodo::CommentRenderer.render(body)
   end
 end

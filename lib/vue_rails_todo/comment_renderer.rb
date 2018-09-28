@@ -1,20 +1,19 @@
 module VueRailsTodo
-  class CommentRenderer
-    def initialize
-    end
+  module CommentRenderer
+    RENDER_PIPELINE = [
+      VueRailsTodo::CommentRenderer::SpaceFacts,
+      VueRailsTodo::CommentRenderer::Markdown
+    ].freeze
 
-    def render(text)
-      parser.render(text)
-    end
+    def self.render(text)
+      output = text.dup
 
-    private
+      RENDER_PIPELINE.each do |render_stage|
+        renderer = render_stage.new
+        output = renderer.render(output)
+      end
 
-    def parser
-      @parser ||= Redcarpet::Markdown.new(renderer, fenced_code_blocks: true, autolink: true)
-    end
-
-    def renderer
-      @renderer ||= Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true)
+      output
     end
   end
 end

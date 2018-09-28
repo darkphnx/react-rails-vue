@@ -27,6 +27,7 @@ class Task < ApplicationRecord
 
   private
 
+  # If tags_list is set, update the tag relationship to reflect what's in that list.
   def process_tags_list
     return unless tags_list
 

@@ -1,3 +1,4 @@
+# Basic attributes
 json.id task.id
 json.title task.title
 json.created_at task.created_at

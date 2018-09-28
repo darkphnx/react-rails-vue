@@ -1,8 +1,8 @@
 <template>
   <div class='tile tile-centered mt-2'>
     <div class='tile-content'>
-      <div class='tile-title' v-html="body_html"></div>
-      <div class='text-subtitle text-gray'>Posted at {{ created_at }} </div>
+      <div class='tile-title markdown' v-html="body_html"></div>
+      <div class='text-subtitle text-italic text-gray'>Posted {{ created_at }} </div>
     </div>
   </div>
 </template>

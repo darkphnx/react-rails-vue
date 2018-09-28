@@ -6,6 +6,12 @@
   margin: 20px auto;
 }
 
-.task {
-  margin: .75rem 0;
+.tile .tile-content .tile-title {
+  white-space: normal;
+}
+
+.markdown {
+  p:last-child {
+    margin-bottom: 0;
+  }
 }

@@ -5,7 +5,7 @@
         <div class='panel-header'>
           <div class='panel-title h5 mt-10'><i class='icon icon-flag'></i> Tasks</div>
         </div>
-        <div class='panel-body'>
+        <div class='panel-body my-2'>
           <tag-filter
             :tags="availableTags"
             :selectedTags="selectedTags"

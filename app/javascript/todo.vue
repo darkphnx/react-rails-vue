@@ -74,14 +74,14 @@
 </template>
 
 <script>
-import TagFilter from './tag_filter.vue'
-import Task from './task.vue'
-import NewTaskForm from './new_task_form.vue'
-import Comment from './comment.vue'
-import NewCommentForm from './new_comment_form.vue'
-import Empty from './empty'
+import TagFilter from 'components/tag_filter.vue'
+import Task from 'components/task.vue'
+import NewTaskForm from 'components/new_task_form.vue'
+import Comment from 'components/comment.vue'
+import NewCommentForm from 'components/new_comment_form.vue'
+import Empty from 'components/empty'
 
-import axios from '../utils/request'
+import axios from 'utils/request'
 
 export default {
   data: function () {

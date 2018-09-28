@@ -11,7 +11,7 @@ import '../stylesheets/application'
 
 import Vue from 'vue/dist/vue.esm'
 // Root component
-import Todo from '../components/todo.vue'
+import Todo from '../todo.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({

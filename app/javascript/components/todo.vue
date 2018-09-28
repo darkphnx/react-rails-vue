@@ -92,10 +92,19 @@ export default {
       tasksLoading: true
     }
   },
+  /**
+   * On load call fetchTasks() to get our initial set of tasks
+   */
   created: function() {
     this.fetchTasks()
   },
   methods: {
+    /**
+     * Get a list of tasks from the backend and set this.tasks to the returned
+     * data.
+     *
+     * Focusses the first task in the returned list.
+     */
     fetchTasks: function() {
       const vm = this;
 
@@ -108,37 +117,79 @@ export default {
           }
         });
     },
+    /**
+     * Add a new task to the tasks array and focus it
+     *
+     * @param {Object} newTask Task to add to the array
+     */
     addTask: function(newTask) {
       this.tasks.push(newTask);
       this.focussedTaskId = newTask.id;
     },
+    /**
+     * Find an existing task and replace it's data with a new set
+     *
+     * @param {Object} updatedTask task to replace the existing one
+     */
     updateTask: function(updatedTask) {
       const taskId = updatedTask.id;
 
+      // Find the current tasks position in the tasks array
       const existingTaskIndex = this.tasks.findIndex(function(task) {
         return task.id === taskId;
       });
 
-      this.tasks.splice(existingTaskIndex, 1, updatedTask);
+      // Only replace an existing task
+      if(existingTaskIndex >= 0) {
+        // Replace the existing task with the new data
+        this.tasks.splice(existingTaskIndex, 1, updatedTask);
+      }
     },
+    /**
+     * Remove an existing task from the tasks array
+     *
+     * @param {Number} taskId ID of the task to remove
+     */
     removeTask: function(taskId) {
       const taskIndex = this.tasks.findIndex(function(task) {
         return task.id === taskId;
       });
 
-      this.tasks.splice(taskIndex, 1);
+      // Only delete if we can find the task
+      if(taskIndex >= 0) {
+        this.tasks.splice(taskIndex, 1);
+      }
     },
+    /**
+     * Focus a task in the interface
+     *
+     * @param {Number} taskId ID of the task to focus
+     */
     focusTask: function(taskId) {
       this.focussedTaskId = taskId;
     },
+    /**
+     * Set the selected tags list to a new set of tags
+     *
+     * @param {String[]} newSelectedTags array of tags ot be active
+     */
     updateSelectedTags: function(newSelectedTags){
       this.selectedTags = newSelectedTags;
     }
   },
   computed: {
+    /**
+     * Are there any tasks present in the tasks array?
+     */
     anyTasks: function() {
       return this.tasks.length;
     },
+    /**
+     * Find a list of available tags by concatenating all the unique tags
+     * currently present on tasks.
+     *
+     * @returns {String[]} an array containing all of the tags that are on tasks
+     */
     availableTags: function() {
       const availableTags = [];
 
@@ -154,23 +205,40 @@ export default {
 
       return availableTags;
     },
+    /**
+     * Filters out tasks by tag. Filtering is an OR operation, so a task will
+     * match if it has ANY of the tags in the selectedTags array.
+     *
+     * @return {Object[]} An array of matched tasks
+     */
     filteredTasks: function() {
       if(this.selectedTags.length == 0){
+        // If there aren't any selectedTags then we want all tasks
         return this.tasks;
       } else {
         const vm = this;
 
+        // Loop through the tasks, then inpsect the tags on each to see if
+        // they have anything that is present in selectedTags
         const matchingTasks = this.tasks.filter(function(task) {
           const foundTagIndex = task.tags.findIndex(function(tag) {
             return vm.selectedTags.includes(tag);
           });
 
+          // Returns true if a selectedTag was present in the task
           return foundTagIndex >= 0;
         });
 
         return matchingTasks;
       }
     },
+    /**
+     * Find the focussed task using focussedTaskId. Only looks in the list of
+     * filteredTasks. So if the task isn't currently available in there it will
+     * not be focussed.
+     *
+     * @returns {Object} task that should be focussed
+     */
     focussedTask: function() {
       const vm = this;
 

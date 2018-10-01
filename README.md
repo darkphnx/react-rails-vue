@@ -11,8 +11,8 @@ This is an experiment to test out the usage of Webpacker with Rails, Vue.js and 
 Clone the repo, run bundler and yarn, seed the database. Default database configuration is set to sqlite, so no need to configure anything unless you want to use another backend.
 
 ```sh
-git clone git@github.com:darkphnx/vue-rails-vue.git
-cd vue-rails-vue
+git clone git@github.com:darkphnx/vue-rails-todo.git
+cd vue-rails-todo
 bundle install
 yarn install
 rake db:schema:load
